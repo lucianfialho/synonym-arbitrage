@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "synonyms-pt"
+version = "0.1.0"
+description = "Lossless token reduction via synonym substitution for LLM preprocessing"
+requires-python = ">=3.10"
+dependencies = [
+    "tiktoken>=0.7.0",
+    "click>=8.1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-cov"]
+
+[project.scripts]
+synonyms = "synonyms.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["synonyms"]

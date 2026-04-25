@@ -1,0 +1,479 @@
+{
+  "comarca": {
+    "replacement": "foro",
+    "gender_change": "f→m",
+    "safe": true,
+    "notes": "Circunscrição judicial. Foro é sinônimo aceito na linguagem jurídica."
+  },
+  "magistrado": {
+    "replacement": "juiz",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Em contexto geral. Magistrado inclui desembargadores; em contexto restrito, usar com cuidado."
+  },
+  "magistrada": {
+    "replacement": "juíza",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Forma feminina."
+  },
+  "testemunha": {
+    "replacement": "depoente",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Depoente é quem presta depoimento; testemunha tem sentido mais amplo. Usar com cuidado."
+  },
+  "requerente": {
+    "replacement": "autor",
+    "gender_change": "f→m",
+    "safe": true,
+    "notes": "Requerente é epiceno (a/o requerente). Autor é masculino. Se preceder artigo feminino, corrige para masculino."
+  },
+  "requerida": {
+    "replacement": "ré",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Forma feminina do polo passivo."
+  },
+  "requerido": {
+    "replacement": "réu",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Polo passivo da ação cível."
+  },
+  "exequente": {
+    "replacement": "credor",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Exequente é quem executa; credor é quem tem o crédito. Nem sempre intercambiáveis."
+  },
+  "executado": {
+    "replacement": "devedor",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Executado é polo passivo da execução; devedor é mais amplo."
+  },
+  "jurisdição": {
+    "replacement": "alçada",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Alçada refere-se mais a competência por valor; jurisdição é mais amplo."
+  },
+  "procurador": {
+    "replacement": "advogado",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Procurador pode ser advogado constituído ou cargo público. Verificar contexto."
+  },
+  "despacho": {
+    "replacement": "decisão",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Despacho é ato ordinatório sem cunho decisório; decisão é mais ampla. Cuidado com precisão técnica."
+  },
+  "peticionário": {
+    "replacement": "autor",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Quem peticiona/propõe a ação."
+  },
+  "pronunciamento": {
+    "replacement": "decisão",
+    "gender_change": "m→f",
+    "safe": true,
+    "notes": "Pronunciamento (m) → decisão (f)."
+  },
+  "determinação": {
+    "replacement": "ordem",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Determinação judicial é uma ordem do juiz."
+  },
+  "imputado": {
+    "replacement": "réu",
+    "gender_change": null,
+    "safe": true,
+    "notes": "No processo penal, imputado = réu = acusado."
+  },
+  "acusação": {
+    "replacement": "denúncia",
+    "gender_change": null,
+    "safe": false,
+    "notes": "No penal, acusação formal é a denúncia do MP. Nem sempre intercambiáveis."
+  },
+  "interstício": {
+    "replacement": "prazo",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Interstício tem sentido específico de intervalo mínimo obrigatório."
+  },
+  "dilação": {
+    "replacement": "prazo",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Dilação probatória = prazo para provas. Contexto específico."
+  },
+  "prolação": {
+    "replacement": "emissão",
+    "gender_change": "f→f",
+    "safe": true,
+    "notes": "Prolação (f) → emissão (f). Sem mudança de gênero."
+  },
+  "decisum": {
+    "replacement": "decisão",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Latinismo jurídico para decisão."
+  },
+  "desiderato": {
+    "replacement": "objetivo",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Desiderato = objetivo/propósito."
+  },
+  "celeuma": {
+    "replacement": "polêmica",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Celeuma jurídica = polêmica/controvérsia."
+  },
+  "controvérsia": {
+    "replacement": "disputa",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Controvérsia = disputa/divergência."
+  },
+  "antagonismo": {
+    "replacement": "conflito",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Antagonismo = conflito/oposição."
+  },
+  "mister": {
+    "replacement": "dever",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Mister = dever/necessidade (arcaísmo jurídico comum)."
+  },
+  "inadimplemento": {
+    "replacement": "mora",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Mora é o termo técnico para o estado de atraso obrigacional. Não são sinônimos perfeitos: inadimplemento é a não-execução, mora é o atraso. Cuidado com contexto."
+  },
+  "cognição": {
+    "replacement": "análise",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Cognição tem sentido técnico processual específico (exauriente, sumária). Cuidado."
+  },
+  "litigante": {
+    "replacement": "parte",
+    "gender_change": "m→f",
+    "safe": true,
+    "notes": "Litigante = parte no processo. Litigante é epiceno/m, parte é feminino."
+  },
+  "demandante": {
+    "replacement": "autor",
+    "gender_change": "f→m",
+    "safe": true,
+    "notes": "Demandante é epiceno. Autor é masculino."
+  },
+  "demandado": {
+    "replacement": "réu",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Demandado = polo passivo."
+  },
+
+  "reclamante": {
+    "replacement": "autor",
+    "gender_change": "f→m",
+    "safe": false,
+    "notes": "No TST, reclamante é o polo ativo da ação trabalhista. Autor é o equivalente cível. Tecnicamente distintos mas intercambiáveis no contexto de 'quem ajuizou a ação'."
+  },
+  "reclamada": {
+    "replacement": "ré",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Reclamada é o polo passivo trabalhista. Ré é o equivalente cível. Pode gerar confusão de domínio."
+  },
+  "recorrente": {
+    "replacement": "apelante",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Recorrente = quem recorre. Apelante é sinônimo na maioria dos contextos recursais."
+  },
+  "recorrida": {
+    "replacement": "apelada",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Recorrida = polo passivo do recurso. Apelada é sinônimo."
+  },
+  "julgamento": {
+    "replacement": "decisão",
+    "gender_change": "m→f",
+    "safe": false,
+    "notes": "Julgamento (3tok) → decisão (2tok). Semanticamente próximos mas não idênticos: julgamento é o ato, decisão é o pronunciamento."
+  },
+  "trabalhador": {
+    "replacement": "obreiro",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Trabalhador (4tok) → obreiro (2tok). Obreiro é sinônimo jurídico aceito no TST mas mais restrito. Verificar contexto."
+  },
+  "trabalhadores": {
+    "replacement": "obreiros",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Plural de trabalhador → obreiro."
+  },
+  "fiscalização": {
+    "replacement": "controle",
+    "gender_change": "f→m",
+    "safe": false,
+    "notes": "Fiscalização (3tok) → controle (1tok). Controle é mais amplo. Fiscalização implica atividade específica de inspeção."
+  },
+  "cumprimento": {
+    "replacement": "execução",
+    "gender_change": "m→f",
+    "safe": false,
+    "notes": "Cumprimento (3tok) → execução (2tok). No direito processual, cumprimento de sentença ≠ execução (são fases distintas). Cuidado com contexto."
+  },
+
+  "consubstanciado": {
+    "replacement": "baseado",
+    "gender_change": null,
+    "safe": true,
+    "notes": "consubstanciado (5tok) → baseado (1tok). 'Consubstanciado no entendimento' = 'baseado no entendimento'. Saving: +4 tokens."
+  },
+  "consubstanciada": {
+    "replacement": "baseada",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Forma feminina. consubstanciada (5tok) → baseada (1tok). +4 tokens."
+  },
+  "consubstanciados": {
+    "replacement": "baseados",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Plural masculino. +4 tokens."
+  },
+  "consubstanciadas": {
+    "replacement": "baseadas",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Plural feminino. +4 tokens."
+  },
+  "extrínsecos": {
+    "replacement": "externos",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Requisitos extrínsecos = requisitos externos. extrínsecos (4tok) → externos (1tok). +3 tokens."
+  },
+  "extrínseca": {
+    "replacement": "externa",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Forma feminina singular. +3 tokens."
+  },
+  "extrínsecas": {
+    "replacement": "externas",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Plural feminino. +3 tokens."
+  },
+  "extrínseco": {
+    "replacement": "externo",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Singular masculino. +3 tokens."
+  },
+  "intrínsecos": {
+    "replacement": "internos",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Requisitos intrínsecos = requisitos internos. intrínsecos (4tok) → internos (1tok). +3 tokens."
+  },
+  "intrínsecas": {
+    "replacement": "internas",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Plural feminino. +3 tokens."
+  },
+  "extrapatrimonial": {
+    "replacement": "moral",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Dano extrapatrimonial = dano moral. Equivalência explícita na CLT pós-reforma 2017 (art. 223-A). extrapatrimonial (4tok) → moral (1tok). +3 tokens."
+  },
+  "extrapatrimoniais": {
+    "replacement": "morais",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Plural. Danos extrapatrimoniais = danos morais. +3 tokens."
+  },
+  "vislumbra": {
+    "replacement": "vê",
+    "gender_change": null,
+    "safe": true,
+    "notes": "'Não se vislumbra' → 'não se vê'. vislumbra (4tok) → vê (1tok). +3 tokens."
+  },
+  "vislumbrar": {
+    "replacement": "ver",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Infinitivo. +3 tokens."
+  },
+  "preceitua": {
+    "replacement": "diz",
+    "gender_change": null,
+    "safe": true,
+    "notes": "'O artigo preceitua' → 'o artigo diz'. preceitua (4tok) → diz (1tok). +3 tokens."
+  },
+  "remanescendo": {
+    "replacement": "restando",
+    "gender_change": null,
+    "safe": true,
+    "notes": "remanescendo (4tok) → restando (2tok). +2 tokens."
+  },
+  "remanescente": {
+    "replacement": "restante",
+    "gender_change": null,
+    "safe": true,
+    "notes": "remanescente (4tok) → restante (2tok). +2 tokens."
+  },
+  "rediscutir": {
+    "replacement": "rever",
+    "gender_change": null,
+    "safe": true,
+    "notes": "'Rediscutir a matéria' → 'rever a matéria'. rediscutir (4tok) → rever (1tok). +3 tokens."
+  },
+  "desrespeito": {
+    "replacement": "violação",
+    "gender_change": null,
+    "safe": true,
+    "notes": "desrespeito (4tok) → violação (2tok). +2 tokens."
+  },
+  "desproporcionalidade": {
+    "replacement": "excesso",
+    "gender_change": "f→m",
+    "safe": false,
+    "notes": "desproporcionalidade (5tok) → excesso (1tok). +4 tokens. Semântica aproximada: excesso implica desproporção mas não é idêntico."
+  },
+  "desincumbiu": {
+    "replacement": "provou",
+    "gender_change": null,
+    "safe": true,
+    "notes": "'Não se desincumbiu do ônus' → 'não provou'. desincumbiu (4tok) → provou (2tok). +2 tokens."
+  },
+  "desincumbir": {
+    "replacement": "provar",
+    "gender_change": null,
+    "safe": true,
+    "notes": "Infinitivo. desincumbir (4tok) → provar (2tok). +2 tokens."
+  },
+  "impugnação": {
+    "replacement": "contestação",
+    "gender_change": null,
+    "safe": false,
+    "notes": "impugnação (4tok) → contestação (2tok). +2 tokens. Impugnação tem sentido mais amplo; contestação é específica para resposta do réu. Cuidado com contexto."
+  },
+  "infraconstitucional": {
+    "replacement": "ordinário",
+    "gender_change": "m→m",
+    "safe": false,
+    "notes": "Lei infraconstitucional → lei ordinária. infraconstitucional (4tok) → ordinário (2tok). +2 tokens. Ordinária é mais estrita (só leis ordinárias), infraconstitucional inclui MPs, decretos etc."
+  },
+
+  "arrematante": {
+    "replacement": "comprador",
+    "gender_change": null,
+    "safe": false,
+    "notes": "arrematante (4tok) → comprador (1tok). +3 tokens. Arrematante é específico de leilão; comprador é mais genérico. Domínio: licitações/leilões."
+  },
+  "arrematantes": {
+    "replacement": "compradores",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Plural. +3 tokens."
+  },
+  "arrematação": {
+    "replacement": "compra",
+    "gender_change": null,
+    "safe": false,
+    "notes": "arrematação (3tok) → compra (1tok). +2 tokens. Arrematação = ato de arrematar em leilão. Compra é mais genérico."
+  },
+  "licitante": {
+    "replacement": "empresa",
+    "gender_change": null,
+    "safe": false,
+    "notes": "licitante (3tok) → empresa (1tok). +2 tokens. Licitante é epiceno; empresa assume PJ. Usar só quando contexto for claro."
+  },
+  "licitantes": {
+    "replacement": "empresas",
+    "gender_change": null,
+    "safe": false,
+    "notes": "Plural. +2 tokens."
+  },
+  "pregoeiro": {
+    "replacement": "condutor",
+    "gender_change": null,
+    "safe": false,
+    "notes": "pregoeiro (3tok) → condutor (2tok). +1 token. Pregoeiro é o agente que conduz o pregão. Condutor é aproximado. Cuidado com perda de especificidade."
+  },
+  "consórcio": {
+    "replacement": "grupo",
+    "gender_change": "m→m",
+    "safe": false,
+    "notes": "consórcio (3tok) → grupo (1tok). +2 tokens. Consórcio tem sentido jurídico específico (Lei 8.666). Grupo é genérico."
+  },
+  "inexigibilidade": {
+    "replacement": "dispensa",
+    "gender_change": null,
+    "safe": false,
+    "notes": "inexigibilidade (3tok) → dispensa (2tok). +1 token. São hipóteses distintas de contratação direta na Lei 14.133. Não são sinônimos precisos."
+  },
+  "inabilitação": {
+    "replacement": "reprovação",
+    "gender_change": null,
+    "safe": false,
+    "notes": "inabilitação (3tok) → reprovação (2tok). +1 token. Inabilitação é ato formal em licitação. Reprovação é mais genérico."
+  },
+  "homologação": {
+    "replacement": "aprovação",
+    "gender_change": null,
+    "safe": true,
+    "notes": "homologação (2tok) → aprovação (1tok). +1 token. Homologação = aprovação formal de resultado. Aprovação é aceito na maioria dos contextos."
+  },
+  "habilitação": {
+    "replacement": "aprovação",
+    "gender_change": null,
+    "safe": false,
+    "notes": "habilitação (2tok) → aprovação (1tok). +1 token. Habilitação tem sentido técnico em licitações (fase de qualificação). Aprovação é mais amplo."
+  },
+  "adimplência": {
+    "replacement": "cumprimento",
+    "gender_change": "f→m",
+    "safe": true,
+    "notes": "adimplência (3tok) → cumprimento (1tok). +2 tokens. Adimplência = estado de quem cumpre suas obrigações. Cumprimento é sinônimo aceito."
+  },
+  "inadimplência": {
+    "replacement": "mora",
+    "gender_change": null,
+    "safe": true,
+    "notes": "inadimplência (3tok) → mora (1tok). +2 tokens. Mora é o termo técnico para o estado de inadimplência obrigacional."
+  },
+  "notificação": {
+    "replacement": "aviso",
+    "gender_change": "f→m",
+    "safe": true,
+    "notes": "notificação (2tok) → aviso (1tok). +1 token. Em contextos informais e muitos contratuais são intercambiáveis. Notificação extrajudicial formal não substituir."
+  },
+  "rescisão": {
+    "replacement": "extinção",
+    "gender_change": null,
+    "safe": false,
+    "notes": "rescisão (3tok) → extinção (2tok). +1 token. Rescisão implica descumprimento; extinção é mais ampla. Cuidado com contexto."
+  }
+}
