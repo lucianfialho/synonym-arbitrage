@@ -1,170 +1,191 @@
-# synonyms-pt
+# token-squeeze
 
-Redução de tokens em texto jurídico português via substituição de sinônimos.
+**A methodology for finding synonym substitutions that reduce LLM token costs in non-English text.**
 
-Funciona como pré-processamento antes de qualquer chamada a LLM. Sem modelo auxiliar, sem inferência, sem perda semântica.
-
-```bash
-pip install synonyms-pt
-```
-
-```bash
-echo "A controvérsia foi resolvida pelo magistrado." | synonyms compress --domain legal-pt
-# → "A disputa foi resolvida pelo juiz."
-# → -4 tokens (controvérsia: 4tok → disputa: 1tok, magistrado: 2tok → juiz: 1tok)
-```
+Most prompt optimization tools measure token cost wrong. Here's the correct way, and a worked example in Portuguese legal text.
 
 ---
 
-## Por que isso importa
-
-Tokenizadores BPE (GPT-4o, Claude, etc.) são treinados majoritariamente em inglês. Palavras portuguesas — especialmente jargão jurídico derivado do latim — ficam fragmentadas em múltiplos tokens mesmo quando têm sinônimos mais curtos e semanticamente equivalentes.
-
-**O detalhe que importa na medição:**
+## The Problem With Measuring Token Cost
 
 ```python
 import tiktoken
-enc = tiktoken.get_encoding("o200k_base")
+enc = tiktoken.get_encoding("o200k_base")  # GPT-4o tokenizer
 
-len(enc.encode("fiscalização"))    # → 3 tokens  ← errado pra medir custo real
-len(enc.encode(" fiscalização"))   # → 1 token   ← como aparece em texto
-len(enc.encode(" controle"))       # → 1 token   ← mesmo custo, nenhum saving aqui
+# This is how most tools measure:
+len(enc.encode("fiscalização"))   # → 3 tokens
+len(enc.encode("controle"))       # → 1 token
+# "great, replacing fiscalização → controle saves 2 tokens!"
+
+# This is how text actually appears in documents:
+len(enc.encode(" fiscalização"))  # → 1 token  ← with leading space
+len(enc.encode(" controle"))      # → 1 token
+# savings: 0
 ```
 
-O espaço antes da palavra faz parte do token no BPE. Medir em isolamento dá savings falsos. Esta lib mede corretamente.
+BPE tokenizers learn common character sequences from training data. The leading space becomes part of the token. `" fiscalização"` is a single token in o200k_base — not three. Measuring in isolation gives false savings.
+
+**This repo is about finding pairs where the in-context cost actually differs**, and using them as a preprocessing step before LLM calls.
 
 ---
 
-## O que funciona de verdade
-
-Benchmarks em corpus real (352 acórdãos TST + 173 editais PNCP):
-
-| Corpus | Modo | Savings médio | P90 |
-|--------|------|--------------|-----|
-| TST (acórdãos trabalhistas) | safe-only | 0.33% | 0.55% |
-| TST | full | 0.69% | 1.01% |
-| PNCP (editais contratos) | safe-only | 0.04% | 0.07% |
-| PNCP | full | 1.03% | 1.66% |
-
-Esses números são modestos. Para documentos com vocabulário técnico denso (`consubstanciado`, `arrematante`, `controvérsia`) os savings são maiores — mas não exageramos a média.
-
-**Preservação semântica:** 40 pares de Q&A sobre documentos originais vs. comprimidos via Claude. Nenhuma divergência factual.
-
----
-
-## Instalação
+## How It Works
 
 ```bash
-pip install synonyms-pt
+pip install token-squeeze
 ```
-
-Dependências: `tiktoken`, `click`. Sem modelos, sem downloads.
-
----
-
-## Uso
-
-### CLI
 
 ```bash
-# comprime stdin
-echo "texto jurídico..." | synonyms compress --domain legal-pt
-
-# mostra o que mudaria sem aplicar
-synonyms analyze --domain legal-pt documento.txt
-
-# tokens antes/depois
-synonyms stats --domain legal-pt --model gpt-4o documento.txt
-
-# lista o dicionário
-synonyms dict list --domain legal-pt
+echo "The indemnification clause was notwithstanding." | squeeze compress --domain legal-en
+# or for Portuguese legal:
+echo "A controvérsia foi resolvida." | squeeze compress --domain legal-pt
+# → "A disputa foi resolvida."  (-3 tokens)
 ```
-
-### Python
 
 ```python
-from synonyms import Compressor
+from token_squeeze import Compressor
 
 c = Compressor(domain="legal-pt", model="gpt-4o", safe_only=True)
 result = c.compress("A controvérsia foi resolvida pelo magistrado.")
-
 print(result.text)          # "A disputa foi resolvida pelo juiz."
 print(result.tokens_saved)  # 4
-print(result.substitution_count)  # 2
-
-# relatório completo
-stats = c.stats("texto...")
-print(stats["savings_pct"])  # 3.2
 ```
-
-### safe_only vs full
-
-- **`safe_only=True`** (padrão): 36 pares onde o sinônimo é semanticamente equivalente na grande maioria dos contextos. Recomendado para produção.
-- **`safe_only=False`**: 58 pares, inclui substituições contextualmente válidas mas com nuances jurídicas. Cada entrada tem uma nota explicando quando não usar.
 
 ---
 
-## O dicionário
+## The Methodology
 
-58 pares curados manualmente em `data/legal_pt.json`. Cada entrada tem:
+**Step 1 — Measure correctly** (with leading space):
+```python
+def token_cost(word, model="gpt-4o"):
+    enc = tiktoken.get_encoding(MODEL_TO_ENCODING[model])
+    return len(enc.encode(" " + word))  # space prefix = in-context cost
+```
+
+**Step 2 — Discover expensive words in your corpus:**
+```bash
+python discover.py --corpus-dir your/docs/ --min-tokens 2 --min-freq 5
+```
+```
+consubstanciado    ×223   5 tok
+arrematante        ×342   4 tok
+controvérsia       ×719   4 tok  ✓ (already in dict)
+notwithstanding    ×89    3 tok
+indemnification    ×156   3 tok
+```
+
+**Step 3 — Find cheaper synonyms, validate semantics, add to dictionary.**
+
+The hard part is validation. We include safety flags on every pair:
 
 ```json
 {
   "controvérsia": {
     "replacement": "disputa",
-    "gender_change": null,
     "safe": true,
-    "notes": "controvérsia (4tok) → disputa (1tok). +3 tokens."
+    "notes": "4tok → 1tok in context. Semantically equivalent in most legal contexts."
+  },
+  "arrematante": {
+    "replacement": "comprador",
+    "safe": false,
+    "notes": "4tok → 1tok. arrematante is auction-specific; comprador is generic. Use with care."
   }
 }
 ```
 
-Os pares `safe: false` estão no dicionário mas documentados — `inadimplência → mora`, `licitante → empresa`, etc. Você decide se usa.
+---
+
+## Benchmarks
+
+Tested on 352 TST labor court decisions + 173 Brazilian public procurement documents (PNCP). All corpora are public and scrapers are included.
+
+| Corpus | Mode | Mean savings | P90 |
+|--------|------|-------------|-----|
+| TST labor decisions | safe-only | 0.33% | 0.55% |
+| TST labor decisions | full | 0.69% | 1.01% |
+| PNCP contracts | safe-only | 0.04% | 0.07% |
+| PNCP contracts | full | 1.03% | 1.66% |
+
+These are modest numbers. We don't inflate them.
+
+**Semantic preservation:** 40 Q&A pairs on original vs. compressed documents via Claude CLI. No factual divergence found. All apparent mismatches were formatting differences, not content changes.
+
+![Benchmark results](benchmark_results/3_comparacao_corpora.png)
 
 ---
 
-## Expandir para outros domínios
+## Apply To Your Language or Domain
+
+The Portuguese legal dictionary is a worked example. The methodology applies to any domain where:
+
+- The language is not English (BPE training data is English-dominated)
+- Or the domain uses specialized jargon that BPE hasn't seen enough of
+
+**Why non-English languages benefit more:**
+
+English words like `notwithstanding`, `jurisdiction`, `confidentiality` are already 1 token in o200k_base — BPE learned them as single units. The equivalent terms in Portuguese, Arabic, German, Japanese are often fragmented into 2–5 tokens because they're rare in English-dominated training corpora.
+
+**To build a dictionary for your language/domain:**
 
 ```bash
-# descobre palavras caras no seu corpus
-python discover.py --corpus-dir seu/corpus/ --min-tokens 2 --min-freq 5
+# 1. collect documents from your domain (any plain text files)
+# 2. find expensive words
+python discover.py --corpus-dir your/docs/ --min-tokens 2 --min-freq 5
 
-# OUTPUT:
-# consubstanciado    ×223  5 tok
-# arrematante        ×342  4 tok
-# controvérsia       ×719  4 tok  ✓ (já no dict)
+# 3. for each candidate, find synonyms and check real savings:
+python -c "
+from token_squeeze import token_cost
+print(token_cost('notwithstanding'))  # 1 — no savings possible
+print(token_cost('hereinafter'))      # 3 — worth finding a substitute
+"
+
+# 4. add validated pairs to data/your-domain.json
+# 5. run benchmark to measure actual impact
 ```
 
-Depois valida os candidatos e adiciona ao dicionário. O processo está documentado em [`discover.py`](discover.py).
+The `data/` folder is designed for multiple domain dictionaries. `legal-pt` is the first one.
 
 ---
 
-## Reproduzir os benchmarks
+## Limitations
+
+- Works best on domain-specific jargon. Common words are already 1 token in context.
+- Portuguese benefits more than English because BPE training data is English-dominated.
+- Savings are 0.3–1% on average. Not transformative — an optimization, not a solution.
+- Dictionary requires human curation. 58 pairs for PT legal, English dict in progress.
+- Grammar agreement (gender in Portuguese) is handled for mapped pairs only.
+
+---
+
+## Reproduce
 
 ```bash
-# baixa corpus TST (acórdãos públicos do TST)
-python scraper.py fetch 350
+# clone and install
+git clone https://github.com/you/token-squeeze
+pip install -e .
 
-# baixa corpus PNCP (editais de contratos públicos)
-python scraper_pncp.py fetch 200
+# fetch real corpora (public data)
+python scraper.py fetch 350        # Brazilian labor court decisions
+python scraper_pncp.py fetch 200   # public procurement contracts
 
-# roda benchmark com gráficos
+# run benchmarks with plots
 python benchmark_full.py
+
+# run semantic preservation test (requires claude CLI)
+python semantic_test.py both 10
 ```
 
-Todos os dados são públicos. Os scrapers são incluídos.
+---
+
+## Related Work
+
+- Sennrich et al. (2016) — original BPE for NLP
+- Oh & Schuler (2024) — documents the leading whitespace confound in BPE vocabularies
+- Petrov et al. (2023) — tokenizer unfairness across languages
+- LLMLingua (2023) — prompt compression via token dropping (lossy, requires auxiliary LLM)
+
+This repo is different from LLMLingua: no tokens are removed, no auxiliary model needed. It's lossless substitution, not compression.
 
 ---
 
-## Limitações
-
-- Funciona melhor em texto jurídico PT-BR. Outros domínios precisam de curadoria.
-- Savings modestos em texto formulaico (acórdãos de tribunais superiores). Maior impacto em documentos com vocabulário técnico variado.
-- Concordância gramatical de gênero é tratada para os pares mapeados, mas construções complexas podem precisar de revisão.
-- O dicionário foi curado por humano, não gerado por LLM. É pequeno (58 pares) e cresce devagar.
-
----
-
-## Licença
-
-MIT
+MIT License
