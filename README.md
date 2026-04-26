@@ -147,6 +147,32 @@ The `data/` folder is designed for multiple domain dictionaries. `legal-pt` is t
 
 ---
 
+## Two complementary approaches
+
+This repo includes two ways to reduce token costs — they target different sides of an LLM call:
+
+**1. Input preprocessing** (this library): compress the document before sending.
+
+```bash
+echo "A controvérsia foi resolvida." | synonyms compress --domain legal-pt
+# → "A disputa foi resolvida."  (-3 input tokens)
+```
+
+**2. Output compression via Ubiquitous Language** (system prompt): define canonical terms so the LLM uses shorter words in its responses.
+
+```bash
+# use the included glossary as a system prompt
+claude -p "Analyze: $(cat processo.txt)" \
+  --append-system-prompt "$(cat UBIQUITOUS_LANGUAGE.md)"
+# → LLM responds using "autor" not "requerente", "mora" not "inadimplência"
+```
+
+The [`UBIQUITOUS_LANGUAGE.md`](UBIQUITOUS_LANGUAGE.md) is ready to use. A Claude Code skill (`.claude/skills/legal-pt-ul.md`) lets you evolve the glossary as the domain understanding grows.
+
+Both approaches use the same underlying dictionary — one at inference time, one as system context.
+
+---
+
 ## Limitations
 
 - Works best on domain-specific jargon. Common words are already 1 token in context.
