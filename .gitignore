@@ -8,3 +8,4 @@ build/
 samples/
 kb/
 .gates/
+.claude/scheduled_tasks.lock

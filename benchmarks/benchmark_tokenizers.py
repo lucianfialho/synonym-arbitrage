@@ -8,12 +8,12 @@ import sys
 from pathlib import Path
 from statistics import mean, median, stdev
 
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from synonyms import Compressor
 from synonyms import tokenizer as tok
 
-CORPUS_DIR = Path(__file__).parent / "samples" / "corpus"
+CORPUS_DIR = Path(__file__).parent.parent / "samples" / "corpus"
 SEP  = "─" * 88
 SEP2 = "━" * 88
 
@@ -114,7 +114,7 @@ def main() -> None:
         "cl100k": tik.get_encoding("cl100k_base"),
     }
     import json
-    data = json.loads((Path(__file__).parent / "data" / "legal_pt.json").read_text())
+    data = json.loads((Path(__file__).parent.parent / "data" / "legal_pt.json").read_text())
 
     print(f"  {'palavra':<22} {'substituto':<16} {'o200k (GPT-4o)':>16} {'cl100k (GPT-4)':>16} {'melhor':>8}")
     print(f"  {'─'*82}")
