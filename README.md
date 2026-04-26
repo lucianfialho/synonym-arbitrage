@@ -1,4 +1,4 @@
-# token-squeeze
+# synonym-arbitrage
 
 **A methodology for finding synonym substitutions that reduce LLM token costs in non-English text.**
 
@@ -32,18 +32,18 @@ BPE tokenizers learn common character sequences from training data. The leading 
 ## How It Works
 
 ```bash
-pip install token-squeeze
+pip install synonym-arbitrage
 ```
 
 ```bash
-echo "The indemnification clause was notwithstanding." | squeeze compress --domain legal-en
+echo "The indemnification clause was notwithstanding." | synonyms compress --domain legal-en
 # or for Portuguese legal:
-echo "A controvérsia foi resolvida." | squeeze compress --domain legal-pt
+echo "A controvérsia foi resolvida." | synonyms compress --domain legal-pt
 # → "A disputa foi resolvida."  (-3 tokens)
 ```
 
 ```python
-from token_squeeze import Compressor
+from synonym_arbitrage import Compressor
 
 c = Compressor(domain="legal-pt", model="gpt-4o", safe_only=True)
 result = c.compress("A controvérsia foi resolvida pelo magistrado.")
@@ -134,7 +134,7 @@ python discover.py --corpus-dir your/docs/ --min-tokens 2 --min-freq 5
 
 # 3. for each candidate, find synonyms and check real savings:
 python -c "
-from token_squeeze import token_cost
+from synonym_arbitrage import token_cost
 print(token_cost('notwithstanding'))  # 1 — no savings possible
 print(token_cost('hereinafter'))      # 3 — worth finding a substitute
 "
@@ -161,7 +161,7 @@ The `data/` folder is designed for multiple domain dictionaries. `legal-pt` is t
 
 ```bash
 # clone and install
-git clone https://github.com/you/token-squeeze
+git clone https://github.com/lucianfialho/synonym-arbitrage
 pip install -e .
 
 # fetch real corpora (public data)
