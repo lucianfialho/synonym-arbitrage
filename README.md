@@ -179,10 +179,11 @@ python semantic_test.py both 10
 
 ## Related Work
 
-- Sennrich et al. (2016) — original BPE for NLP
-- Oh & Schuler (2024) — documents the leading whitespace confound in BPE vocabularies
-- Petrov et al. (2023) — tokenizer unfairness across languages
-- LLMLingua (2023) — prompt compression via token dropping (lossy, requires auxiliary LLM)
+- Sennrich et al. (2016) — [Neural Machine Translation of Rare Words with Subword Units](https://arxiv.org/abs/1508.07909) — original BPE for NLP
+- Oh & Schuler (2024) — [Leading Whitespaces of Language Models' Subword Vocabulary Pose a Confound for Calculating Word Probabilities](https://arxiv.org/abs/2406.10851) — documents the leading whitespace confound in BPE vocabularies
+- Petrov et al. (2023) — [Language Model Tokenizers Introduce Unfairness Between Languages](https://arxiv.org/abs/2305.15425) — tokenizer unfairness across languages
+- Kumar (2026) — [Is Sanskrit the most token-efficient language?](https://arxiv.org/abs/2601.06142) — quantifies the token tax empirically
+- Jiang et al. (2023) — [LLMLingua: Compressing Prompts for Accelerated Inference of Large Language Models](https://arxiv.org/abs/2310.05736) — prompt compression via token dropping (lossy, requires auxiliary LLM)
 
 This repo is different from LLMLingua: no tokens are removed, no auxiliary model needed. It's lossless substitution, not compression.
 
