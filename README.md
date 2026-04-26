@@ -32,18 +32,18 @@ BPE tokenizers learn common character sequences from training data. The leading 
 ## How It Works
 
 ```bash
-pip install synonym-arbitrage
+git clone https://github.com/lucianfialho/synonym-arbitrage
+cd synonym-arbitrage
+pip install -e .
 ```
 
 ```bash
-echo "The indemnification clause was notwithstanding." | synonyms compress --domain legal-en
-# or for Portuguese legal:
 echo "A controvérsia foi resolvida." | synonyms compress --domain legal-pt
 # → "A disputa foi resolvida."  (-3 tokens)
 ```
 
 ```python
-from synonym_arbitrage import Compressor
+from synonyms import Compressor
 
 c = Compressor(domain="legal-pt", model="gpt-4o", safe_only=True)
 result = c.compress("A controvérsia foi resolvida pelo magistrado.")
@@ -134,7 +134,7 @@ python discover.py --corpus-dir your/docs/ --min-tokens 2 --min-freq 5
 
 # 3. for each candidate, find synonyms and check real savings:
 python -c "
-from synonym_arbitrage import token_cost
+from synonyms.tokenizer import count as token_cost
 print(token_cost('notwithstanding'))  # 1 — no savings possible
 print(token_cost('hereinafter'))      # 3 — worth finding a substitute
 "
