@@ -8,11 +8,12 @@ import subprocess
 import random
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
+ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(ROOT))
 from synonyms import Compressor
 
-CORPUS_TST  = Path("samples/corpus")
-CORPUS_PNCP = Path("samples/corpus_pncp")
+CORPUS_TST  = ROOT / "samples" / "corpus"
+CORPUS_PNCP = ROOT / "samples" / "corpus_pncp"
 
 QUESTIONS_TST = [
     "Qual foi o resultado do julgamento (provido, não provido, não conhecido)?",

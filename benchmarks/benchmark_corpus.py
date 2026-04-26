@@ -7,12 +7,12 @@ import sys
 from pathlib import Path
 from statistics import mean, median, stdev
 
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from synonyms import Compressor
 from synonyms import tokenizer as tok
 
-CORPUS_DIR = Path(__file__).parent / "samples" / "corpus"
+CORPUS_DIR = Path(__file__).parent.parent / "samples" / "corpus"
 MODEL = "gpt-4o"
 SEP  = "─" * 90
 SEP2 = "━" * 90

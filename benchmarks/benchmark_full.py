@@ -11,6 +11,8 @@ import sys
 from pathlib import Path
 from statistics import mean, median, quantiles
 
+ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(Path(__file__).parent))
 
 from synonyms import Compressor
@@ -20,8 +22,8 @@ from synonyms.processor import process as proc
 from benchmark_plots import style, plot_distribution, plot_comparison, plot_top_pairs, plot_semantic, SHOW, OUT
 import benchmark_plots as bp
 
-CORPUS_TST  = Path("samples/corpus")
-CORPUS_PNCP = Path("samples/corpus_pncp")
+CORPUS_TST  = ROOT / "samples" / "corpus"
+CORPUS_PNCP = ROOT / "samples" / "corpus_pncp"
 MODEL       = "gpt-4o"
 
 

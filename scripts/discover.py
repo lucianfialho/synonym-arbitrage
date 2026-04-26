@@ -15,11 +15,11 @@ import argparse
 from pathlib import Path
 from collections import Counter
 
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from synonyms.tokenizer import get_encoding
 
-CORPUS_DIR = Path(__file__).parent / "samples" / "corpus"
+CORPUS_DIR = Path(__file__).parent.parent / "samples" / "corpus"
 
 # Palavras a ignorar: funcionais, artigos, preposições, muito curtas
 STOPWORDS = {
@@ -111,7 +111,7 @@ def main() -> None:
     print(f"{'─'*70}")
 
     import json
-    existing = json.loads((Path(__file__).parent / "data" / "legal_pt.json").read_text())
+    existing = json.loads((Path(__file__).parent.parent / "data" / "legal_pt.json").read_text())
 
     shown = 0
     for word, count, tok in candidates[:args.top]:

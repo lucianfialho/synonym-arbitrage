@@ -16,7 +16,7 @@ C_SAFE = "#2563EB"
 C_FULL = "#DC2626"
 C_TST  = "#059669"
 C_PNCP = "#D97706"
-OUT    = Path("benchmark_results")
+OUT    = Path(__file__).parent.parent / "benchmark_results"
 SHOW   = False
 
 

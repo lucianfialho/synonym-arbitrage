@@ -9,9 +9,10 @@ from pathlib import Path
 
 import httpx
 from bs4 import BeautifulSoup
+sys.path.insert(0, str(Path(__file__).parent))
 from tst_queries import QUERIES
 
-CORPUS_DIR = Path(__file__).parent / "samples" / "corpus"
+CORPUS_DIR = Path(__file__).parent.parent / "samples" / "corpus"
 CORPUS_DIR.mkdir(parents=True, exist_ok=True)
 
 API_URL = "https://jurisprudencia-backend2.tst.jus.br/rest/pesquisa-textual/{offset}/{limit}"

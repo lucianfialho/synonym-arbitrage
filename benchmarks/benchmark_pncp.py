@@ -5,12 +5,12 @@ import sys
 from pathlib import Path
 from statistics import mean, median, stdev
 
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from synonyms import Compressor
 from synonyms import tokenizer as tok
 
-CORPUS_DIR = Path(__file__).parent / "samples" / "corpus_pncp"
+CORPUS_DIR = Path(__file__).parent.parent / "samples" / "corpus_pncp"
 MODEL = "gpt-4o"
 MIN_SIZE = 30_000  # só editais maiores
 SEP = "─" * 88

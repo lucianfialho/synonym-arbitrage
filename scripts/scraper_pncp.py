@@ -7,9 +7,10 @@ import re
 from pathlib import Path
 from datetime import date, timedelta
 
+sys.path.insert(0, str(Path(__file__).parent))
 from pncp_fetch import fetch_contracts, fetch_edital, extract_pdf, parse_compra_ref, is_good, PAGE_SIZE
 
-CORPUS_DIR = Path(__file__).parent / "samples" / "corpus_pncp"
+CORPUS_DIR = Path(__file__).parent.parent / "samples" / "corpus_pncp"
 CORPUS_DIR.mkdir(parents=True, exist_ok=True)
 RATE_LIMIT = 0.5
 

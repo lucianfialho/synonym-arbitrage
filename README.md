@@ -191,14 +191,14 @@ git clone https://github.com/lucianfialho/synonym-arbitrage
 pip install -e .
 
 # fetch real corpora (public data)
-python scraper.py fetch 350        # Brazilian labor court decisions
-python scraper_pncp.py fetch 200   # public procurement contracts
+python scripts/scraper.py fetch 350        # Brazilian labor court decisions
+python scripts/scraper_pncp.py fetch 200   # public procurement contracts
 
 # run benchmarks with plots
-python benchmark_full.py
+python benchmarks/benchmark_full.py
 
 # run semantic preservation test (requires claude CLI)
-python semantic_test.py both 10
+python scripts/semantic_test.py both 10
 ```
 
 ---
